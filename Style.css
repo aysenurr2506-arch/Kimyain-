@@ -1,0 +1,133 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+h1 {
+    color: #007bff;
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.stage {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+h2 {
+    color: #28a745;
+    border-bottom: 2px solid #28a745;
+    padding-bottom: 5px;
+    margin-top: 0;
+}
+
+/* --- Eşleştirme Aşaması Stilleri --- */
+
+.matching-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+    margin-top: 15px;
+}
+
+.column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+    border: 1px dashed #ccc;
+    border-radius: 5px;
+}
+
+.matching-item {
+    padding: 12px;
+    background-color: #e9ecef;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, border-color 0.3s, transform 0.1s;
+    text-align: center;
+    font-weight: bold;
+}
+
+.matching-item:hover {
+    background-color: #dee2e6;
+}
+
+.matching-item.selected {
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    background-color: #cce5ff;
+}
+
+.matching-item.matched {
+    background-color: #d4edda;
+    border-color: #28a745;
+    cursor: default;
+    opacity: 0.7;
+    pointer-events: none; /* Eşleşenlere tıklamayı engelle */
+}
+
+.matching-item.incorrect {
+    background-color: #f8d7da;
+    border-color: #dc3545;
+    animation: shake 0.5s;
+}
+
+/* Yanlış eşleşme animasyonu */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    20%, 60% { transform: translateX(-5px); }
+    40%, 80% { transform: translateX(5px); }
+}
+
+/* --- Genel Kontrol Stilleri (Aşama 3 ve 4) --- */
+
+input[type="text"] {
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 200px;
+    display: block;
+}
+
+button {
+    padding: 10px 20px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+button[onclick^="check"] { /* Kontrol Et butonları */
+    background-color: #007bff;
+    color: white;
+}
+
+button[onclick^="load"] { /* Yeni Element/Sembol butonları */
+    background-color: #6c757d;
+    color: white;
+    margin-left: 10px;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+#matching-feedback, #guess-feedback-3, #guess-feedback-4 {
+    margin-top: 15px;
+    padding: 10px;
+    border-left: 5px solid #ffc107;
+    background-color: #fff3cd;
+    border-radius: 4px;
+}
