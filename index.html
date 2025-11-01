@@ -4,48 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İnteraktif Element Öğretim Portalı</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Kimya-app/style.css">
 </head>
 <body>
     <h1>İnteraktif Element Öğretim Portalı</h1>
+    
     <div id="content">
-        </div>
+        
+    </div>
 
-    <script src="script.js"></script>
+    <script src="Kimya-app/script.js"></script>
 </body>
 </html>
-<div id="stage-2" class="stage">
-    <h2>2. Aşama: Elementleri Eşleştirme</h2>
-    <p>Element adları ve sembolleri arasındaki doğru eşleştirmeyi bulun.</p>
-
-    <div class="matching-container">
-        <div id="names-column" class="column">
-            </div>
-        <div id="symbols-column" class="column">
-            </div>
-    </div>
-    <button onclick="checkMatching()">Eşleştirmeyi Kontrol Et</button>
-    <p id="matching-feedback"></p>
-</div>
-<div id="stage-3" class="stage">
-    <h2>3. Aşama: Ben bir element isem sembolüm kim?</h2>
-    
-    <p>Aşağıdaki elementin sembolünü giriniz:</p>
-    <strong id="element-name-3"></strong>
-    
-    <input type="text" id="symbol-input-3" placeholder="Element Sembolü">
-    <button onclick="checkSymbolGuess()">Kontrol Et</button>
-    <p id="guess-feedback-3"></p>
-    <button onclick="loadStage3()">Yeni Element</button>
-</div>
-<div id="stage-4" class="stage">
-    <h2>4. Aşama: Ben bir sembol isem elementim kim?</h2>
-    
-    <p>Aşağıdaki sembolün ait olduğu elementi giriniz:</p>
-    <strong id="element-symbol-4"></strong>
-    
-    <input type="text" id="name-input-4" placeholder="Element Adı">
-    <button onclick="checkNameGuess()">Kontrol Et</button>
-    <p id="guess-feedback-4"></p>
-    <button onclick="loadStage4()">Yeni Sembol</button>
-</div>
