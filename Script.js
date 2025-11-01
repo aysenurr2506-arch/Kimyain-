@@ -1,33 +1,15 @@
 // Temel Element Verileri (Ad: Sembol)
-// Basitlik ve popülerlik için ilk 20 element kullanıldı
 const elements = {
-    "Hidrojen": "H",
-    "Helyum": "He",
-    "Lityum": "Li",
-    "Berilyum": "Be",
-    "Bor": "B",
-    "Karbon": "C",
-    "Azot": "N",
-    "Oksijen": "O",
-    "Flor": "F",
-    "Neon": "Ne",
-    "Sodyum": "Na",
-    "Magnezyum": "Mg",
-    "Alüminyum": "Al",
-    "Silisyum": "Si",
-    "Fosfor": "P",
-    "Kükürt": "S",
-    "Klor": "Cl",
-    "Argon": "Ar",
-    "Potasyum": "K",
+    "Hidrojen": "H", "Helyum": "He", "Lityum": "Li", "Berilyum": "Be", "Bor": "B",
+    "Karbon": "C", "Azot": "N", "Oksijen": "O", "Flor": "F", "Neon": "Ne",
+    "Sodyum": "Na", "Magnezyum": "Mg", "Alüminyum": "Al", "Silisyum": "Si",
+    "Fosfor": "P", "Kükürt": "S", "Klor": "Cl", "Argon": "Ar", "Potasyum": "K",
     "Kalsiyum": "Ca"
 };
 
-// Element adlarının ve sembollerinin listeleri
 const elementNames = Object.keys(elements);
 const elementSymbols = Object.values(elements);
 
-// Rastgele karıştırma fonksiyonu (Fisher-Yates)
 function shuffle(array) {
     let currentIndex = array.length, randomIndex;
     while (currentIndex != 0) {
@@ -39,12 +21,10 @@ function shuffle(array) {
     return array;
 }
 
-// Global durum değişkenleri
 let selectedName = null;
 let selectedSymbol = null;
-let nameSymbolMap = new Map(); // Eşleştirilen elementleri tutar
+let nameSymbolMap = new Map(); 
 
-// DOM hazır olduğunda ilk aşamayı yükle
 document.addEventListener('DOMContentLoaded', () => {
     // HTML aşamalarını ana içeriğe ekle
     document.getElementById('content').innerHTML = `
@@ -85,7 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // --- 2. Aşama: Eşleştirme Fonksiyonları ---
-
 function loadStage2() {
     nameSymbolMap.clear();
     const namesColumn = document.getElementById('names-column');
@@ -93,15 +72,12 @@ function loadStage2() {
     namesColumn.innerHTML = '';
     symbolsColumn.innerHTML = '';
 
-    // Rastgele 5 element seç
     let allNames = shuffle([...elementNames]);
     const selectedNames = allNames.slice(0, 5);
     const selectedSymbols = selectedNames.map(name => elements[name]);
 
-    // Sembolleri de karıştır
     let shuffledSymbols = shuffle([...selectedSymbols]);
 
-    // İsimleri DOM'a ekle
     selectedNames.forEach(name => {
         const item = document.createElement('div');
         item.className = 'matching-item name-item';
@@ -111,7 +87,6 @@ function loadStage2() {
         namesColumn.appendChild(item);
     });
 
-    // Sembolleri DOM'a ekle
     shuffledSymbols.forEach(symbol => {
         const item = document.createElement('div');
         item.className = 'matching-item symbol-item';
@@ -122,26 +97,23 @@ function loadStage2() {
     });
 
     document.getElementById('matching-feedback').innerText = 'Eşleştirme bekliyor...';
-    // Seçim durumunu sıfırla
     selectedName = null;
     selectedSymbol = null;
 }
 
 function selectItem(item, type) {
-    // Önceki seçimi temizle
     document.querySelectorAll('.matching-item.selected').forEach(el => el.classList.remove('selected'));
 
     item.classList.add('selected');
 
     if (type === 'name') {
         selectedName = item;
-        selectedSymbol = null; // Diğer türün seçimini sıfırla
+        selectedSymbol = null;
     } else {
         selectedSymbol = item;
-        selectedName = null; // Diğer türün seçimini sıfırla
+        selectedName = null;
     }
 
-    // İki seçim de yapıldıysa otomatik eşleştirme dene
     if (selectedName && selectedSymbol) {
         attemptMatch(selectedName, selectedSymbol);
     }
@@ -153,25 +125,17 @@ function attemptMatch(nameItem, symbolItem) {
     const feedback = document.getElementById('matching-feedback');
 
     if (elements[name] === symbol) {
-        // Doğru eşleşme
         nameSymbolMap.set(name, symbol);
-
         nameItem.classList.add('matched');
         symbolItem.classList.add('matched');
-
-        // Tıklama olayını kaldır
         nameItem.onclick = null;
         symbolItem.onclick = null;
-
         feedback.innerText = `${name} (${symbol}): Doğru eşleşme! 🎉`;
 
     } else {
-        // Yanlış eşleşme
         nameItem.classList.add('incorrect');
         symbolItem.classList.add('incorrect');
         feedback.innerText = `${name} ve ${symbol}: Yanlış eşleşme. Tekrar deneyin. 😞`;
-
-        // 1 saniye sonra yanlış işaretlerini kaldır
         setTimeout(() => {
             nameItem.classList.remove('incorrect');
             symbolItem.classList.remove('incorrect');
@@ -179,7 +143,6 @@ function attemptMatch(nameItem, symbolItem) {
         }, 1000);
     }
 
-    // Seçimleri sıfırla
     selectedName.classList.remove('selected');
     selectedSymbol.classList.remove('selected');
     selectedName = null;
@@ -199,11 +162,9 @@ function checkMatching() {
 }
 
 // --- 3. Aşama: Element Adı -> Sembol Fonksiyonları ---
-
 let currentElementName3 = '';
 
 function loadStage3() {
-    // Rastgele bir element adı seç
     currentElementName3 = shuffle([...elementNames])[0];
     document.getElementById('element-name-3').innerText = currentElementName3;
     document.getElementById('symbol-input-3').value = '';
@@ -216,7 +177,6 @@ function checkSymbolGuess() {
     const correctSymbol = elements[currentElementName3];
     const feedback = document.getElementById('guess-feedback-3');
 
-    // Büyük/küçük harf duyarsız kontrol (ama doğru cevap büyük/küçük harfli verilecek)
     if (guess.toUpperCase() === correctSymbol.toUpperCase() && guess.length === correctSymbol.length) {
         feedback.innerHTML = `**Doğru!** ${currentElementName3}'ün sembolü **${correctSymbol}**'dur. 🎉`;
     } else {
@@ -225,11 +185,9 @@ function checkSymbolGuess() {
 }
 
 // --- 4. Aşama: Sembol -> Element Adı Fonksiyonları ---
-
 let currentElementSymbol4 = '';
 
 function loadStage4() {
-    // Rastgele bir element sembolü seç
     currentElementSymbol4 = shuffle([...elementSymbols])[0];
     document.getElementById('element-symbol-4').innerText = currentElementSymbol4;
     document.getElementById('name-input-4').value = '';
@@ -240,12 +198,10 @@ function checkNameGuess() {
     const input = document.getElementById('name-input-4');
     const guess = input.value.trim();
     
-    // Sembolün ait olduğu element adını bul
     const correctName = Object.keys(elements).find(key => elements[key] === currentElementSymbol4);
     
     const feedback = document.getElementById('guess-feedback-4');
 
-    // Büyük/küçük harf duyarsız ve Türkçe karakter sorunlarını minimize eden kontrol
     if (guess.toLowerCase() === correctName.toLowerCase()) {
         feedback.innerHTML = `**Doğru!** **${currentElementSymbol4}** sembolü **${correctName}** elementine aittir. 🥳`;
     } else {
